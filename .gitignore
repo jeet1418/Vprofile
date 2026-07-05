@@ -1,3 +1,4 @@
 .vagrant
 target
 terraform.tfstate
+helm/vprofile-charts/templates/secret.yaml
