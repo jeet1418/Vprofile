@@ -35,7 +35,7 @@
                             <a class="navbar-brand" href="#" style="margin-right: -8px; margin-top: -5px;">
                                 <img alt="Brand" src="${contextPath}/resources/Images/user/logo.png" width="30px" height="30px">
                             </a>
-                            <a class="navbar-brand" href="#">HKH Infotech</a>
+                            <a class="navbar-brand" href="#">Satyajit</a>
                         </div>
                         <!-- Navbar Links -->
                         <div class="navbar-collapse collapse">
@@ -53,7 +53,7 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <span class="user-avatar pull-left" style="margin-right: 8px; margin-top: -5px;">
-                                            <img src="${contextPath}/resources/Images/user/user.png" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
+                                            <img src="${contextPath}/resources/Images/user/main_user.jpg" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
                                         </span>
                                         <span class="user-name">
                                             ${pageContext.request.userPrincipal.name}
@@ -65,7 +65,7 @@
                                             <div class="navbar-content">
                                                 <div class="row">
                                                     <div class="col-md-5">
-                                                        <img src="${contextPath}/resources/Images/user/user.png" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
+                                                        <img src="${contextPath}/resources/Images/user/main_user.jpg" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
                                                         <p class="text-center small">
                                                             <a href="${contextPath}/upload">Change Photo</a>
                                                         </p>
@@ -120,21 +120,21 @@
                 <div class="panel-body">
                     <div class="media">
                         <div align="center">
-                            <img class="thumbnail img-responsive" src="${contextPath}/resources/Images/user/user.png" width="300px" height="300px">
+                            <img class="thumbnail img-responsive" src="${contextPath}/resources/Images/user/main_user.jpg" width="300px" height="300px">
                         </div>
                         <div class="media-body">
                             <hr>
                             <h3><strong>Bio</strong></h3>
-                            <p>DevOps For Product Management and Strategy of Application Delivery at HKH Infotech. Responsible of providing customers with counsel on their DevOps strategies to help them deliver higher quality software and services to market faster.</p>
+                            <p>I am a DevOps Engineer with experience in continuous integration and continuous deployment (CI/CD), infrastructure as code (IaC), containerization, and cloud computing.</p>
                             <hr>
                             <h3><strong>Location</strong></h3>
                             <p>Earth</p>
                             <hr>
                             <h3><strong>Gender</strong></h3>
-                            <p>Unknown</p>
+                            <p>Male</p>
                             <hr>
                             <h3><strong>Birthday</strong></h3>
-                            <p>January 01 1901</p>
+                            <p>February 20 1999</p>
                         </div>
                     </div>
                 </div>

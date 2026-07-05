@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${contextPath}/index">HKH Infotech</a>
+                <a class="navbar-brand" href="${contextPath}/index">Satyajit</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -105,20 +105,20 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center">ABOUT</h3>
     <div class="w3-content" style="max-width:864px">
 	     <p style="text-align:justify;">
-                    HKH Infotech is a dynamic software company dedicated to delivering innovative technology solutions. Founded with a mission to leverage cutting-edge technology and unparalleled expertise, we specialize in creating high-quality software solutions that drive business success.
+                    I am satyajit, a DevOps Engineer with a passion for technology and innovation. With a strong background in software development and system administration, I specialize in implementing DevOps practices that enhance collaboration, streamline workflows, and accelerate the delivery of high-quality software solutions.
                 </p>
                 <p style="text-align:justify;">
-                    Our team is led by seasoned DevOps experts with many years of industry experience. They bring a wealth of knowledge in automating and optimizing the software development lifecycle, ensuring that our projects are efficient, reliable, and scalable.
+                    My expertise includes continuous integration and continuous deployment (CI/CD), infrastructure as code (IaC), containerization, and cloud computing. I am proficient in tools such as Jenkins, Docker, Kubernetes, Ansible, Terraform, and various cloud platforms like AWS and Azure.
                 </p>
                 <p style="text-align:justify;">
-                    At HKH Infotech, we focus on understanding our clients' unique needs and providing tailored solutions that meet their objectives. Whether it's custom software development, system integration, or ongoing support, we are committed to excellence and client satisfaction.
+                    I am dedicated to staying up-to-date with the latest industry trends and best practices, and I thrive in dynamic environments where I can contribute to the success of projects and teams. My goal is to leverage my skills and experience to drive innovation, improve efficiency, and deliver exceptional results for organizations.
                 </p>
                 <p style="text-align:justify;">
-                    With a commitment to staying ahead of technological trends and a passion for innovation, HKH Infotech is your trusted partner in navigating the digital landscape and achieving your business goals.
+                    In addition to my technical skills, I am a strong communicator and collaborator, capable of working effectively with cross-functional teams to achieve common goals. I am committed to continuous learning and professional growth, and I am always seeking new challenges and opportunities to expand my knowledge and expertise in the field of DevOps.
                 </p>
-                <p><strong>Address:</strong> Punjagutta Colony Ameerpet, Hyderabad</p>
-                <p><strong>Phone:</strong> +91-8001234567</p>
-                <p><strong>Email:</strong> contact@hkhinfotech.com</p>
+                <p><strong>Address:</strong> Mangalpur, Odisha</p>
+                <p><strong>Phone:</strong> +91-7752047918</p>
+                <p><strong>Email:</strong> satyajit.1418@gmail.com</p>
   	</div>
    </div>
 
