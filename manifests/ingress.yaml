@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: www.jeet1418.xyz
+  - host: vprofile.jeet1418.com
     http:
       paths:
       - pathType: Prefix
