@@ -1,0 +1,67 @@
+
+app:
+  name: vproapp
+  replicaCount: 1
+  image:
+    repository: jeet1418/vproapp
+    tag: v1
+    pullPolicy: IfNotPresent
+  containerPort: 8080
+  service:
+    type: ClusterIP
+    port: 8080
+
+
+db:
+  name: vprodb
+  replicaCount: 1
+  image:
+    repository: jeet1418/vprodb
+    tag: v1
+    pullPolicy: IfNotPresent
+  containerPort: 3306
+  service:
+    type: ClusterIP
+    port: 3306
+
+rabbitmq:
+  name: vpromq
+  replicaCount: 1
+  image:
+    repository: rabbitmq
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 5672
+  service:
+    type: ClusterIP
+    port: 5672
+
+memcache:
+  name: vpromc
+  replicaCount: 1
+  image:
+    repository: memcached
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 11211
+  service:
+    type: ClusterIP
+    port: 11211
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: 
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01
+  hosts:
+    - host: wwww.jeet1418.xyz
+
+storage:
+  name: vprodb-pvc
+  accessMode: ReadWriteOnce
+  size: 3Gi

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.db.name }}-deploy
+  labels:
+    app: vprodb
+spec:
+  replicas: {{ .Values.db.replicaCount }}
+  selector:
+    matchLabels:
+      app: vprodb
+  template:
+    metadata:
+      labels:
+        app: vprodb
+    spec:
+      containers:
+      - name: vprodb
+        image: {{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}
+        pullPolicy: {{ .Values.db.image.pullPolicy }}
+        volumeMounts:
+        - name: vprodb-data
+          mountPath: /var/lib/mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vpro-secret
+              key: db-pass
+        ports:
+        - name: vprodb-port
+          containerPort: {{ .Values.db.containerPort }}
+
+      volumes:
+      - name: vprodb-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.storage.name }}
+          
+# We are using an initContainer to clean up the data directory before starting the MySQL container. This is useful in scenarios where we want to ensure that the database starts with a clean state, especially during development or testing phases.
+
+      initContainers:
+      - name: busybox
+        image: busybox
+        args: ["rm", "-rf", "/var/lib/mysql/*"]
+        volumeMounts:
+        - name: vprodb-data
+          mountPath: /var/lib/mysql
