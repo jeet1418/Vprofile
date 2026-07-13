@@ -57,7 +57,7 @@ ingress:
     alb.ingress.kubernetes.io/certificate-arn: 
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01
+    alb.ingress.kubernetes.io/group.name: vprofile
   hosts:
     - host: wwww.jeet1418.xyz
 
