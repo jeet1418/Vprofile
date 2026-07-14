@@ -3,3 +3,4 @@ target
 terraform.tfstate
 manifests/secret.yaml
 helm/vprofile-charts/templates/secret.yaml
+helm/jenkins-charts/
