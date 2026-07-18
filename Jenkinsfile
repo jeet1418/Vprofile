@@ -17,23 +17,6 @@ pipeline {
 
     stages {
 
-        stage('Debug') {
-            steps {
-                sh '''
-                    echo "Current directory:"
-                    pwd
-
-                    echo ""
-                    echo "Workspace contents:"
-                    ls -la
-
-                    echo ""
-                    echo "Git status:"
-                    git status || true
-                '''
-            }
-}
-
         stage('Build Application') {
             steps {
                 echo "Building Maven project..."
@@ -89,6 +72,7 @@ pipeline {
             steps {
 
                 sh '''
+                    git config --global --add safe.directory "$WORKSPACE"
                     git config user.name "Jenkins CI"
                     git config user.email "satyajit.1418@gmail.com"
 
