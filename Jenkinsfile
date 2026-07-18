@@ -17,6 +17,23 @@ pipeline {
 
     stages {
 
+        stage('Debug') {
+            steps {
+                sh '''
+                    echo "Current directory:"
+                    pwd
+
+                    echo ""
+                    echo "Workspace contents:"
+                    ls -la
+
+                    echo ""
+                    echo "Git status:"
+                    git status || true
+                '''
+            }
+}
+
         stage('Build Application') {
             steps {
                 echo "Building Maven project..."
