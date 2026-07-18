@@ -1,121 +1,91 @@
 pipeline {
-    
-	agent any
-/*	
-	tools {
-        maven "maven3"
+
+    agent {
+        docker {
+            image 'jeet1418/vprofile-agent:latest'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            reuseNode true
+        }
     }
-*/	
+
+
     environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
-        NEXUS_REPOSITORY = "vprofile-release"
-	NEXUS_REPO_ID    = "vprofile-release"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
-        ARTVERSION = "${env.BUILD_ID}"
+        IMAGE_NAME = "jeet1418/vproapp"
+        IMAGE_TAG  = "${BUILD_NUMBER}"
+        DOCKER_CREDS = "dockerhub-creds"
     }
-	
-    stages{
-        
-        stage('BUILD'){
+
+    stages {
+
+        stage('Build Application') {
             steps {
-                sh 'mvn clean install -DskipTests'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
+                echo "Building Maven project..."
+
+                sh '''
+                    mvn clean package -DskipTests
+                '''
             }
         }
 
-	stage('UNIT TEST'){
+        stage('Build Docker Image') {
             steps {
-                sh 'mvn test'
+                echo "Building Docker Image..."
+
+                sh '''
+                    docker build \
+                    -f Docker-files/app/Dockerfile \
+                    -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                '''
             }
         }
 
-	stage('INTEGRATION TEST'){
+        stage('Push Docker Image') {
             steps {
-                sh 'mvn verify -DskipUnitTests'
-            }
-        }
-		
-        stage ('CODE ANALYSIS WITH CHECKSTYLE'){
-            steps {
-                sh 'mvn checkstyle:checkstyle'
-            }
-            post {
-                success {
-                    echo 'Generated Analysis Result'
-                }
-            }
-        }
 
-        stage('CODE ANALYSIS with SONARQUBE') {
-          
-		  environment {
-             scannerHome = tool 'sonarscanner4'
-          }
-
-          steps {
-            withSonarQubeEnv('sonar-pro') {
-               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile-repo \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
-                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-            }
-
-            timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate abortPipeline: true
-            }
-          }
-        }
-
-        stage("Publish to Nexus Repository Manager") {
-            steps {
                 script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version} ARTVERSION";
-                        nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: ARTVERSION,
-                            repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
-                            artifacts: [
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
-                    } 
-		    else {
-                        error "*** File: ${artifactPath}, could not be found";
+
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDS) {
+
+                        sh '''
+                            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                        '''
                     }
+
                 }
+
             }
         }
 
+        stage('Update Helm Chart') {
+            steps {
+                sh '''
+                yq -i '.app.image.tag = env(IMAGE_TAG)' helm/vprofile-charts/values.yaml
+                '''
+
+                sh 'cat helm/vprofile-charts/values.yaml'
+
+
+            }
+        }
+
+        stage('Commit Changes') {
+            steps {
+
+                sh '''
+                    git config user.name "Jenkins CI"
+                    git config user.email "satyajit.1418@gmail.com"
+
+                    git add helm/vprofile-charts/values.yaml
+
+                    git commit -m "Update image tag to ${IMAGE_TAG}" || true
+
+                    git push origin HEAD:main
+                '''
+
+
+            }
+        }
 
     }
-
 
 }
