@@ -4,14 +4,12 @@ app:
   replicaCount: 1
   image:
     repository: jeet1418/vproapp
-    tag: v1
+    tag: 5
     pullPolicy: IfNotPresent
   containerPort: 8080
   service:
     type: ClusterIP
     port: 8080
-
-
 db:
   name: vprodb
   replicaCount: 1
@@ -23,7 +21,6 @@ db:
   service:
     type: ClusterIP
     port: 3306
-
 rabbitmq:
   name: vpromq
   replicaCount: 1
@@ -35,7 +32,6 @@ rabbitmq:
   service:
     type: ClusterIP
     port: 5672
-
 memcache:
   name: vpromc
   replicaCount: 1
@@ -47,20 +43,18 @@ memcache:
   service:
     type: ClusterIP
     port: 11211
-
 ingress:
   enabled: true
   className: alb
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: 
+    alb.ingress.kubernetes.io/certificate-arn:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/group.name: vprofile
   hosts:
     - host: wwww.jeet1418.xyz
-
 storage:
   name: vprodb-pvc
   accessMode: ReadWriteOnce
