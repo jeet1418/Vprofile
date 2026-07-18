@@ -71,19 +71,29 @@ pipeline {
         stage('Commit Changes') {
             steps {
 
-                sh '''
-                    git config --global --add safe.directory "$WORKSPACE"
-                    git config user.name "Jenkins CI"
-                    git config user.email "satyajit.1418@gmail.com"
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'github-creds',
+                        usernameVariable: 'GIT_USER',
+                        passwordVariable: 'GIT_TOKEN'
+                    )
+                ]) {
 
-                    git add helm/vprofile-charts/values.yaml
+                    sh '''
+                        git config --global --add safe.directory "$WORKSPACE"
 
-                    git commit -m "Update image tag to ${IMAGE_TAG}" || true
+                        git config user.name "Jenkins CI"
+                        git config user.email "satyajit.1418@gmail.com"
 
-                    git push origin HEAD:main
-                '''
+                        git add helm/vprofile-charts/values.yaml
 
+                        git commit -m "Update image tag to ${IMAGE_TAG}" || true
 
+                        git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/jeet1418/Vprofile.git
+
+                        git push origin HEAD:main
+                    '''
+                }
             }
         }
 
