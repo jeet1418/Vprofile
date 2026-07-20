@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = var.bucket_name
+    bucket = "vpro-terraform-state"
     key = "terraform.tfstate"
-    region = var.aws_region
-    dynamodb_table = var.dynamodb_table
+    region = "us-east-1"
+    dynamodb_table = "vpro-state-lock"
   }
 }
