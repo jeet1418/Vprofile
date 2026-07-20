@@ -15,7 +15,7 @@ spec:
       containers:
       - name: vpromc
         image: {{ .Values.memcache.image.repository }}:{{ .Values.memcache.image.tag }}
-        pullPolicy: {{ .Values.memcache.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.memcache.image.pullPolicy }}
         ports:
         - name: vpromc-port
           containerPort: {{ .Values.memcache.containerPort }}

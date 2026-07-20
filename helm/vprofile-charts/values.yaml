@@ -54,7 +54,7 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/group.name: vprofile
   hosts:
-    - host: wwww.jeet1418.xyz
+    - host: www.jeet1418.xyz
 storage:
   name: vprodb-pvc
   accessMode: ReadWriteOnce

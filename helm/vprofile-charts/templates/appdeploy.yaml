@@ -15,7 +15,7 @@ spec:
       containers:
       - name: vproapp
         image: {{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}
-        pullPolicy: {{ .Values.app.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.app.image.pullPolicy }}
         ports:
         - name: vproapp-port
           containerPort: {{ .Values.app.containerPort }}
