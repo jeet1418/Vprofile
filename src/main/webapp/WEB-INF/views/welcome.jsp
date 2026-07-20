@@ -165,7 +165,7 @@
 
                       <%
                           Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                          String username = auth != null ? auth.getName() : "to Hkhinfotech Social Media";
+                          String username = auth != null ? auth.getName() : "to Satyajit's Profile";
                       %>
                       <p>Welcome, <%= username %>!</p>
 
