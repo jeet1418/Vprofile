@@ -16,5 +16,5 @@ node_groups = {
     }
   }
 }
-bucket_name = "vpro-terraform-state"
+bucket_name = "vpro-state-bucket"
 dynamodb_table = "vpro-state-lock"
