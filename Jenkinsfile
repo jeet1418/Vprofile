@@ -27,34 +27,19 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Push Docker Image') {
             steps {
-                echo "Building Docker Image..."
-
-                sh '''
-                    docker buildx build \
-                        --platform linux/amd64 \
-                        -f Docker-files/app/Dockerfile \
-                        -t ${IMAGE_NAME}:${IMAGE_TAG} \
-                        --push .
-                '''
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-
                 script {
-
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDS) {
-
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
                         sh '''
-                            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                            docker buildx build \
+                            --platform linux/amd64 \
+                            -f Docker-files/app/Dockerfile \
+                            -t ${IMAGE_NAME}:${IMAGE_TAG} \
+                            --push .
                         '''
                     }
-
                 }
-
             }
         }
 
