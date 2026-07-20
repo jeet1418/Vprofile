@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.memcache.name }}-deployment
+  name: {{ .Values.memcache.name }}-deploy
 spec:
   replicas: {{ .Values.memcache.replicaCount }}
   selector:
