@@ -32,9 +32,11 @@ pipeline {
                 echo "Building Docker Image..."
 
                 sh '''
-                    docker build \
-                    -f Docker-files/app/Dockerfile \
-                    -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                    docker buildx build \
+                        --platform linux/amd64 \
+                        -f Docker-files/app/Dockerfile \
+                        -t ${IMAGE_NAME}:${IMAGE_TAG} \
+                        --push .
                 '''
             }
         }
