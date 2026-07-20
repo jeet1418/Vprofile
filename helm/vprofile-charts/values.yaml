@@ -4,7 +4,7 @@ app:
   replicaCount: 1
   image:
     repository: jeet1418/vproapp
-    tag: v2
+    tag: 9
     pullPolicy: IfNotPresent
   containerPort: 8080
   service:
