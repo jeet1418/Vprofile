@@ -1,6 +1,9 @@
 .vagrant
 target
 terraform.tfstate
+terraform/backend/.terraform/
+terraform/backend/terraform.tfstate.backup
+terraform/eks-infra/.terraform/
 manifests/secret.yaml
 helm/vprofile-charts/templates/secret.yaml
 helm/jenkins-charts/
